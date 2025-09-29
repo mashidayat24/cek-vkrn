@@ -100,18 +100,38 @@
     font-size:1.08rem;
     color:var(--accent);
   }
-  .rows{padding:12px 16px;}
-  .row{
-    display:grid;
-    grid-template-columns:120px 1fr;
-    gap:10px;
-    padding:6px 0;
-    border-bottom:1px dashed var(--line);
-    font-size:15px;
+
+  /* --- MODIFIKASI TABEL HASIL 2 KOLOM --- */
+  .rows {
+    padding: 0;
+    margin: 0 0 10px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: #f9fbff;
+    display: table;
+    width: 100%;
   }
-  .row:last-child{border-bottom:0}
-  .key{color:var(--muted);font-weight:600}
-  .val a{color:var(--accent);text-decoration:none;word-break:break-all;}
+  .row {
+    display: table-row;
+  }
+  .row .key, .row .val {
+    display: table-cell;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .row .key {
+    font-weight: 600;
+    color: var(--muted);
+    width: 170px;
+    background: #f5f7fb;
+  }
+  .row:last-child .key, .row:last-child .val {
+    border-bottom: none;
+  }
+  /* --- END MODIFIKASI --- */
+
   .form{
     margin-top:14px;
     border-top:1px solid var(--line);
@@ -161,6 +181,11 @@
     .btn.small{padding:7px 0;font-size:12px}
     .badge{font-size:12px;padding:6px 11px;}
     .search-group{max-width:100%;}
+    /* Tambahan untuk responsive tabel 2 kolom */
+    .rows { display: block; }
+    .row { display: flex; flex-direction: column; }
+    .row .key, .row .val { display: block; padding: 8px 10px; border-bottom: 1px solid var(--line);}
+    .row .key { background: #f5f7fb; width: 100%; }
   }
   @media (max-width:400px){
     .rows,.card .hdr{padding:10px 2vw;}
@@ -329,6 +354,7 @@ async function loadAll(){
 /* ===========================
    RENDER
 =========================== */
+/* --- MODIFIKASI: mkRow tampilkan 2 kolom tabel --- */
 function mkRow(key,val){
   const v = (val??'')+''; 
   const isURL = /^https?:\/\//i.test(v);
@@ -388,19 +414,18 @@ function resultCard(item){
     <div class="hdr">${hdr}</div>
     <div class="rows">
       ${rows.map(([k,v])=>mkRow(k,v)).join('')}
-
-      <div class="form">
-        <h3>DIPASTIKAN SEBELUM MENGGANTI, CEK TEGANGAN, APABILA DIBAWAH 200V, MAKA ISI DIBAWAH INI DAN WA TE</h3>
-        <div class="fgrid">
-          <input id="f-tegangan" type="number" placeholder="Tegangan (Volt)"/>
-          <select id="f-petugas">
-            ${[petugasDefault,'FARIS','INGGIT','TES'].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).map(v=>`<option ${v===petugasDefault?'selected':''}>${v}</option>`).join('')}
-          </select>
-          <input id="f-catatan" placeholder="NOMOR HP PELANGGAN"/>
-          <button class="btn success" id="btnSimpan">Simpan</button>
-        </div>
-        <div class="status" id="saveStatus"></div>
+    </div>
+    <div class="form">
+      <h3>DIPASTIKAN SEBELUM MENGGANTI, CEK TEGANGAN, APABILA DIBAWAH 200V, MAKA ISI DIBAWAH INI DAN WA TE</h3>
+      <div class="fgrid">
+        <input id="f-tegangan" type="number" placeholder="Tegangan (Volt)"/>
+        <select id="f-petugas">
+          ${[petugasDefault,'FARIS','INGGIT','TES'].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).map(v=>`<option ${v===petugasDefault?'selected':''}>${v}</option>`).join('')}
+        </select>
+        <input id="f-catatan" placeholder="NOMOR HP PELANGGAN"/>
+        <button class="btn success" id="btnSimpan">Simpan</button>
       </div>
+      <div class="status" id="saveStatus"></div>
     </div>
   </div>
   `;
