@@ -7,40 +7,166 @@
 
 <style>
   :root{
-    --bg:#f5f7fb; --card:#fff; --text:#2c3e50; --muted:#6b7b8c;
+    --bg:#f5f7fb; --card:#fff; --text:#222c38; --muted:#6b7b8c;
     --accent:#4e79ff; --accent-2:#27ae60; --danger:#e74c3c;
-    --line:#e8eef6;
+    --line:#e8eef6; --shadow:0 8px 32px rgba(40,80,120,0.10);
   }
   *{box-sizing:border-box;font-family:Inter,Segoe UI,system-ui,Arial,sans-serif}
   body{margin:0;background:var(--bg);color:var(--text)}
-  .wrap{max-width:980px;margin:30px auto;padding:0 16px}
-  h1{font-weight:800;letter-spacing:.3px;text-align:center;margin:6px 0 4px}
+  .wrap{
+    max-width:540px;
+    margin:24px auto 0 auto;
+    padding:0 10px 24px 10px;
+    background:rgba(255,255,255,0.75);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    border:1px solid var(--line);
+  }
+  h1{font-weight:900;letter-spacing:.3px;text-align:center;margin:16px 0 6px;font-size:2.1rem;}
   .sub{color:var(--muted);text-align:center;font-size:13px;margin-bottom:14px}
   .toolbar{display:flex;gap:8px;justify-content:center;align-items:center;margin:10px 0 18px}
-  .btn{border:0;background:var(--accent);color:#fff;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:600}
-  .btn.small{padding:8px 12px;font-size:13px}
+  .btn{
+    border:0;
+    background:var(--accent);
+    color:#fff;
+    border-radius:8px;
+    padding:11px 20px;
+    cursor:pointer;
+    font-weight:700;
+    font-size:1rem;
+    box-shadow:0 2px 8px rgba(70,120,255,0.08);
+    transition:background .18s,box-shadow .18s;
+    display:block;
+    width:100%;
+    margin-top:10px;
+  }
+  .btn.small{padding:8px 12px;font-size:13px;width:auto;margin-top:0;}
   .btn.success{background:var(--accent-2)}
   .btn:disabled{opacity:.6;cursor:not-allowed}
-  .search{display:flex;gap:8px;justify-content:center}
-  .search input{width:100%;max-width:720px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px 14px;font-size:15px;outline:none}
-  .search .btn{padding:12px 18px}
-  .hint{color:var(--muted);font-size:13px;margin:10px 0}
+  .btn:active{background:#24419e;}
+  .btn.secondary{background:#fff;color:var(--accent);border:1.5px solid var(--accent);}
+  .search-group{
+    width:100%;
+    max-width:480px;
+    margin:0 auto 0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:8px;
+    transition:all .18s;
+  }
+  .search{
+    width:100%;
+    display:flex;
+    gap:0;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:0;
+  }
+  .search input{
+    flex:1;
+    min-width:0;
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:10px;
+    padding:13px 14px;
+    font-size:1rem;
+    outline:none;
+    box-shadow:0 2px 8px rgba(40,60,90,0.06);
+    transition:box-shadow .18s;
+    width:100%;
+  }
+  .search input:focus{box-shadow:0 6px 16px rgba(78,121,255,0.10);}
+  .hint{color:var(--muted);font-size:13px;margin:10px 0;text-align:center;}
   .grid{margin-top:12px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 14px rgba(30,60,90,.05);overflow:hidden}
-  .card .hdr{background:#eef3ff;border-bottom:1px solid var(--line);padding:10px 14px;font-weight:800}
-  .rows{padding:10px 14px}
-  .row{display:grid;grid-template-columns:210px 1fr;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    margin-top:8px;
+    animation:fadeIn .4s;
+  }
+  @keyframes fadeIn{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+  .card .hdr{
+    background:linear-gradient(90deg,#eef3ff 60%,#f5f7fb 100%);
+    border-bottom:1px solid var(--line);
+    padding:12px 16px;
+    font-weight:800;
+    letter-spacing:0.4px;
+    font-size:1.08rem;
+    color:var(--accent);
+  }
+  .rows{padding:12px 16px;}
+  .row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:10px;
+    padding:6px 0;
+    border-bottom:1px dashed var(--line);
+    font-size:15px;
+  }
   .row:last-child{border-bottom:0}
   .key{color:var(--muted);font-weight:600}
-  .val a{color:var(--accent);text-decoration:none}
-  .form{margin-top:12px;border-top:1px solid var(--line);padding:12px 14px;background:#fcfdff}
+  .val a{color:var(--accent);text-decoration:none;word-break:break-all;}
+  .form{
+    margin-top:14px;
+    border-top:1px solid var(--line);
+    padding:12px 0 0 0;
+    background:transparent;
+  }
   .form h3{margin:4px 0 10px;font-size:15px}
-  .form .fgrid{display:grid;grid-template-columns:160px 220px 1fr auto;gap:8px}
-  .form input,.form select{border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .form .fgrid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1.3fr auto;
+    gap:8px;
+    margin-bottom:8px;
+  }
+  .form input,.form select{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 9px;
+    font-size:14px;
+    background:#f9fbff;
+  }
   .status{font-size:13px;margin-left:10px}
   .ok{color:var(--accent-2)} .err{color:var(--danger)}
   footer{color:var(--muted);text-align:center;margin:36px 0 16px;font-size:13px}
-  .badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:12px}
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:1.2px solid var(--line);
+    background:#fff;
+    border-radius:999px;
+    padding:7px 15px;
+    font-size:13px;
+    font-weight:700;
+    box-shadow:0 2px 8px rgba(40,60,90,0.04);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width:600px){
+    .wrap{max-width:100%;margin:0;padding:0 0 24px 0;border-radius:0;box-shadow:none;border:0;}
+    h1{font-size:1.35rem;}
+    .card .hdr{font-size:.97rem;}
+    .rows,.card .hdr{padding:11px 7vw;}
+    .form .fgrid{grid-template-columns:1fr;}
+    .form input, .form select{width:100%;}
+    .row{grid-template-columns:1fr;}
+    .btn{font-size:.97rem;padding:10px 0;}
+    .btn.small{padding:7px 0;font-size:12px}
+    .badge{font-size:12px;padding:6px 11px;}
+    .search-group{max-width:100%;}
+  }
+  @media (max-width:400px){
+    .rows,.card .hdr{padding:10px 2vw;}
+    .row{font-size:13.7px;}
+    .form h3{font-size:13px;}
+  }
 </style>
 </head>
 <body>
@@ -55,8 +181,10 @@
     <button id="btnRefresh" class="btn small">🔄 Refresh Database</button>
   </div>
 
-  <div class="search">
-    <input id="q" placeholder="Cari IDPEL / nama pelanggan / alamat / nomor meter ..." />
+  <div class="search-group" id="searchContainer">
+    <div class="search" id="searchBar">
+      <input id="q" placeholder="Cari IDPEL / nama pelanggan / alamat / nomor meter ..." autocomplete="off" />
+    </div>
     <button class="btn" id="btnCari">Cari</button>
   </div>
 
@@ -75,11 +203,10 @@
 =========================== */
 const TEGANGAN_API = {
   endpoint: 'https://script.google.com/macros/s/AKfycbyUgQItIIfQeNbvndLCNg6qCedq54K5PrO35JlQhUSrbEmymrtTyt9B_oH-05kmXCVT/exec',
-  api_key: 'VKRN_SECRET'   // samakan dengan API_KEY di Apps Script
+  api_key: 'VKRN_SECRET'
 };
-// nama file CSV (sesuaikan dengan repo kamu)
-const FILE_KRN      = 'vkrn.csv';          // existing KRN
-const FILE_SANXING  = 'vkrn_sanxing.csv';  // SANXING (pakai delimiter ';')
+const FILE_KRN      = 'vkrn.csv';
+const FILE_SANXING  = 'vkrn_sanxing.csv';
 
 /* ===========================
    UTIL
@@ -91,7 +218,6 @@ function fmtTime(ts=Date.now()){
 }
 
 function autoDelimiter(firstLine){
-  // pilih delimiter yg paling banyak muncul pada baris header
   const c = firstLine;
   const scores = [
     [',', (c.match(/,/g)||[]).length],
@@ -102,7 +228,6 @@ function autoDelimiter(firstLine){
 }
 
 function parseCSV(text){
-  // strip BOM
   if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
   const first = text.split(/\r?\n/)[0] || '';
   const delim = autoDelimiter(first);
@@ -163,11 +288,8 @@ async function loadAll(){
   // Normalisasi beberapa alias kolom agar bisa tampil seragam
   const norm = (row)=>{
     const map = new Map(Object.entries(row));
-
     function pick(...names){ for(const n of names){ if(map.has(n)) return map.get(n); } return ''; }
-
     return {
-      // umum
       IDPEL:          pick('IDPEL','Idpel','idpel'),
       JENIS:          pick('JENIS','Jenis'),
       NAMA:           pick('NAMA','Nama'),
@@ -188,7 +310,6 @@ async function loadAll(){
       KOORDINAT_Y:    pick('KOORDINAT_Y','LON'),
       KD_KEL:         pick('KD_KEL'),
       PETA:           pick('PETA','Maps','MAP'),
-      // atribut KRN lama
       ALAMAT:         pick('ALAMAT'),
       TARIF_INDEX:    pick('TARIF_INDEX'),
       UNITUP:         pick('UNITUP'),
@@ -250,7 +371,6 @@ function resultCard(item){
     ['KOORDINAT_Y', item.KOORDINAT_Y],
     ['KD_KEL', item.KD_KEL],
     ['PETA', maps || item.PETA || ''],
-    // beberapa kolom lama (kalau ada)
     ['ALAMAT', item.ALAMAT],
     ['TARIF_INDEX', item.TARIF_INDEX],
     ['UNITUP', item.UNITUP],
@@ -261,7 +381,6 @@ function resultCard(item){
     ['TGLCATAT', item.TGLCATAT],
   ].filter(([k,v]) => (v??'')!=='' );
 
-  // Opsi petugas default
   const petugasDefault = item.PETUGAS || '';
 
   return `
@@ -293,12 +412,8 @@ function resultCard(item){
 function search(q){
   q = (q||'').trim().toLowerCase();
   if (!q) return [];
-
-  // Prioritas: IDPEL exact match
   const exact = DB.filter(r => (r.IDPEL||'').toString().trim()===q);
   if (exact.length) return exact;
-
-  // otherwise: contains di semua kolom
   return DB.filter(row=>{
     return Object.values(row).some(v => (v||'').toString().toLowerCase().includes(q));
   });
@@ -366,10 +481,39 @@ function showResults(list){
     area.innerHTML = `<div class="hint" style="background:#fff;border:1px solid var(--line);padding:14px;border-radius:10px;">Tidak ditemukan data yang sesuai</div>`;
     return;
   }
-  // tampilkan hanya item pertama (paling relevan) untuk fokus
   const item = list[0];
   area.innerHTML = resultCard(item);
   wireCardActions(item.IDPEL);
+}
+
+/* ===========================
+   CARI/CARI LAGI BEHAVIOR
+=========================== */
+let searchState = 'ready'; // 'ready' | 'searched'
+function setSearchMode(mode){
+  const searchContainer = $('#searchContainer');
+  const hint = $('#hint');
+  const btn = $('#btnCari');
+  const searchBar = $('#searchBar');
+  if(mode==='searched'){
+    searchBar.style.display = 'none';
+    btn.textContent = 'Cari lagi';
+    hint.textContent = 'Klik "Cari lagi" untuk mencari data yang lain.';
+    btn.classList.add('secondary');
+    btn.classList.remove('success');
+    btn.style.display = '';
+  }else{
+    searchBar.style.display = 'flex';
+    btn.textContent = 'Cari';
+    hint.textContent = 'Ketik lalu Enter / klik Cari. Pencarian menyatukan data KRN & SANXING.';
+    btn.classList.remove('secondary');
+    btn.classList.remove('success');
+    $('#q').value = '';
+    $('#q').focus();
+    $('#resultArea').innerHTML = '';
+    btn.style.display = '';
+  }
+  searchState = mode==='searched'?'searched':'ready';
 }
 
 /* ===========================
@@ -388,16 +532,30 @@ async function init(){
     await loadAll();
   });
 
-  const doSearch = ()=>{
-    const q = $('#q').value;
-    const res = search(q);
-    showResults(res);
-  };
-  $('#btnCari').addEventListener('click', doSearch);
-  $('#q').addEventListener('keypress', (e)=>{ if(e.key==='Enter') doSearch(); });
+  // Tombol Cari/Cari Lagi
+  $('#btnCari').addEventListener('click', ()=>{
+    if(searchState==='ready'){
+      const q = $('#q').value;
+      const res = search(q);
+      showResults(res);
+      setSearchMode('searched');
+    }else{
+      setSearchMode('ready');
+    }
+  });
+
+  // Enter=search
+  $('#q').addEventListener('keypress', (e)=>{
+    if(e.key==='Enter' && searchState==='ready'){
+      $('#btnCari').click();
+    }
+  });
+
+  // default mode
+  setSearchMode('ready');
 }
 
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
-</html>
+  </html>
